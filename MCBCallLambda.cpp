@@ -1,6 +1,6 @@
 //
 //  MCBCallLambda.cpp
-//  MCBAnimationEngine
+//  MCBPlatformSupport
 //
 //  Created by Radif Sharafullin on 22/02/13.
 //
