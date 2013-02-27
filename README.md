@@ -8,3 +8,5 @@ auto callLater(MCBPlatformSupport::MCBCallLambda::create(\[=\](){<br>
     }));<br>
 <br>
 runAction(CCSequence::createWithTwoActions(CCDelayTime::create(.5f), callLater));
+<br><br>
+Update1: added the factory for the sequence (createWithDelay)
