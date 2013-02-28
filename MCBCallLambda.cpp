@@ -22,7 +22,7 @@ namespace MCBPlatformSupport {
         CC_SAFE_DELETE(pRet);
         return nullptr;
     }
-    cocos2d::CCSequence * MCBCallLambda::createWithDelay(std::function<void()> lambda, float delay){
+    cocos2d::CCSequence * MCBCallLambda::createWithDelay(float delay, std::function<void()> lambda){
         MCBCallLambda *pRet = new MCBCallLambda();
         if (pRet && pRet->initWithLambda(lambda)){
             pRet->autorelease();

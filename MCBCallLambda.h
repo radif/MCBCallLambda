@@ -17,7 +17,7 @@ namespace MCBPlatformSupport {
         virtual void update(float time) {execute();}
     public:
         static MCBCallLambda * create(std::function<void()> lambda);
-        static cocos2d::CCSequence * createWithDelay(std::function<void()> lambda, float delay);
+        static cocos2d::CCSequence * createWithDelay(float delay, std::function<void()> lambda);
         virtual bool initWithLambda(const std::function<void()> & lambda);
         virtual void execute();
     protected:
