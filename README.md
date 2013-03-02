@@ -4,18 +4,42 @@ MCBCallLambda
 Cocos2dx CCCallFunc like action that takes c++11 lambda.<br>
 <br>
 
-        auto callLater(MCBPlatformSupport::MCBCallLambda::create([=](){<br>
-                doSomethingWithCapturedParameters(s);<br>
-            }));<br>
+        auto callLater(MCBPlatformSupport::MCBCallLambda::create([=](){
+                doSomethingWithCapturedParameters(s);
+            }));
 <br>
 
         runAction(CCSequence::createWithTwoActions(CCDelayTime::create(.5f), callLater));
 <br>
 Update1: added the factory for the sequence (createWithDelay)
 
+captured variable is s:
+
+	runAction(MCBPlatformSupport::MCBCallLambda::createWithDelay(1.f,[=](){
+	        playWelcome(s);
+	        s->doWelcomeAnimation();
+        
+	        runAction(MCBPlatformSupport::MCBCallLambda::createWithDelay(1.f,[=](){
+	            triggerIntroAnimation(s);
+            
+	            runAction(MCBPlatformSupport::MCBCallLambda::createWithDelay(1.f, [=](){
+	                s->animateCredits();
+	                runAction(MCBPlatformSupport::MCBCallLambda::createWithDelay(.5f, [=](){
+	                    removeChild(s, true);
+	                    setInteractionEnabled(true);
+	                }));
+                
+	            }));
+            
+	        }));
+        
+	    }));
+	    
+	    
 Update2: added MCBScheduleLambda<T> for scheduling updates with captured variables, which is good for animating shader values
 <br>
-anonymous example
+
+anonymous example (no user data persists)
 
 	runAction(MCBPlatformSupport::MCBScheduleLambda<void *>::create(nullptr,[=](float dt, void *, bool & stop){
 	        static float radius=.0f;
