@@ -41,7 +41,7 @@ Update2: added MCBScheduleLambda<T> for scheduling updates with captured variabl
 
 anonymous example (no user data persists)
 
-	runAction(MCBPlatformSupport::MCBScheduleLambda<void *>::create(nullptr,[=](float dt, void *, bool & stop){
+	runAction(MCBPlatformSupport::create_scheduleLambda(nullptr,[=](float dt, void *, bool & stop){
 	        static float radius=.0f;
 	        static float angle=.0f;
         
