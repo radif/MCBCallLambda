@@ -38,37 +38,4 @@ namespace MCBPlatformSupport {
         _lambda=std::move(lambda);
         return true;
     }
-    
-    
-    
-    //MCBScheduleLambda
-    
-    
-    void MCBScheduleLambda::execute(float deltaTime){
-        if (_lambda)
-            _lambda(deltaTime, _isDone);
-    }
-    cocos2d::CCSequence * MCBScheduleLambda::createWithDelay(float delay, std::function<void(float deltaTime, bool & stop)> lambda){
-        MCBScheduleLambda *pRet = new MCBScheduleLambda();
-        if (pRet && pRet->initWithLambda(lambda)){
-            pRet->autorelease();
-            return cocos2d::CCSequence::createWithTwoActions(cocos2d::CCDelayTime::create(delay),pRet);
-        }
-        CC_SAFE_DELETE(pRet);
-        return nullptr;
-    }
-    
-    MCBScheduleLambda * MCBScheduleLambda::create(std::function<void(float deltaTime, bool & stop)> lambda){
-        MCBScheduleLambda *pRet = new MCBScheduleLambda();
-        if (pRet && pRet->initWithLambda(lambda)){
-            pRet->autorelease();
-            return pRet;
-        }
-        CC_SAFE_DELETE(pRet);
-        return nullptr;
-    }
-    bool MCBScheduleLambda::initWithLambda(const std::function<void(float deltaTime, bool & stop)> & lambda){
-        _lambda=std::move(lambda);
-        return true;
-    }
 }
