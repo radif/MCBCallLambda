@@ -34,17 +34,18 @@ namespace MCBPlatformSupport {
         virtual void step(float dt){update(dt);}
         T _userData;
     public:
-        static MCBScheduleLambda * create(T userData, std::function<void(float deltaTime, T *userData , bool & stop)> lambda){
-            MCBScheduleLambda *pRet = new MCBScheduleLambda();
-            if (pRet){
-                pRet->_lambda=std::move(lambda);
-                pRet->_userData=std::move(userData);
-                pRet->autorelease();
-                return pRet;
+        static MCBScheduleLambda * create(T && userData, std::function<void(float deltaTime, T *userData , bool & stop)> &&lambda){
+            MCBScheduleLambda *retVal = new MCBScheduleLambda();
+            if (retVal){
+                retVal->_userData=std::forward<T>(userData);
+                retVal->_lambda=std::move(lambda);
+                retVal->autorelease();
+                return retVal;
             }
-            CC_SAFE_DELETE(pRet);
+            CC_SAFE_DELETE(retVal);
             return nullptr;
         }
+        
         virtual void execute(float deltaTime){
             if (_lambda)
                 _lambda(deltaTime, &_userData,_isDone);
@@ -53,6 +54,10 @@ namespace MCBPlatformSupport {
         MCBScheduleLambda(){}
         virtual ~MCBScheduleLambda(){}
     };
+    template <typename T>
+    MCBScheduleLambda<T> * create_scheduleLambda(T userData, std::function<void(float deltaTime, decltype(userData) *userData , bool & stop)> && lambda){
+        return MCBScheduleLambda<T>::create(std::move(userData), std::forward<decltype(lambda)>(lambda));
+    }
     
 }
 

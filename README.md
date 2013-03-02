@@ -65,7 +65,7 @@ anonymous example (no user data persists)
 
 float example
 
-	runAction(cdaPlatformSupport::cdaScheduleLambda<float>::create(0.0f,[=](float dt, float *radius, bool & stop){
+	runAction(MCBPlatformSupport::create_scheduleLambda(0.0f,[=](float dt, float *radius, bool & stop){
 	        float rad=*radius;
 
 	        if ( _shaderData.bothPointsInvalid()){
@@ -90,7 +90,7 @@ struct example
 
 	 struct radAngle {float radius=.0f;float angle=.0f;};
 
-	    runAction(cdaPlatformSupport::cdaScheduleLambda<radAngle>::create(radAngle(),[=](float dt, radAngle *data, bool & stop){
+	    runAction(MCBPlatformSupport::create_scheduleLambda(radAngle(),[=](float dt, radAngle *data, bool & stop){
 	        float radius(data->radius);
 	        float angle(data->angle);
 	        if ( _shaderData.bothPointsInvalid()){
