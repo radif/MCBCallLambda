@@ -56,7 +56,7 @@ namespace MCBPlatformSupport {
     };
     template <typename T>
     MCBScheduleLambda<T> * create_scheduleLambda(T userData, std::function<void(float deltaTime, decltype(userData) *userData , bool & stop)> && lambda){
-        return MCBScheduleLambda<T>::create(std::move(userData), std::forward<decltype(lambda)>(lambda));
+        return MCBScheduleLambda<T>::create(std::move(userData), std::move(lambda));
     }
     
 }
