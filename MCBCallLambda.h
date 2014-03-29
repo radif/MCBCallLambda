@@ -12,7 +12,7 @@
 namespace MCBPlatformSupport {
     class MCBCallLambda : public cocos2d::CCActionInstant{
         typedef cocos2d::CCActionInstant super;
-        std::function<void()> _lambda=nullptr;
+        std::function<void()> _lambda;
         virtual void update(float time) {execute();}
     public:
         static MCBCallLambda * create(std::function<void()> lambda);
@@ -20,16 +20,16 @@ namespace MCBPlatformSupport {
         virtual bool initWithLambda(const std::function<void()> & lambda);
         virtual void execute();
     protected:
-        MCBCallLambda(){}
+        MCBCallLambda() : _lambda(nullptr) {}
         virtual ~MCBCallLambda(){}
     };
     
     template <typename T>
     class MCBScheduleLambda : public cocos2d::CCActionInstant{
         typedef cocos2d::CCActionInstant super;
-        std::function<void(float deltaTime, T *userData , bool & stop)> _lambda=nullptr;
+        std::function<void(float deltaTime, T *userData , bool & stop)> _lambda;
         virtual void update(float deltaTime) {execute(deltaTime);}
-        bool _isDone=false;
+        bool _isDone;
         virtual bool isDone(){return _isDone;}
         virtual void step(float dt){update(dt);}
         T _userData;
@@ -51,7 +51,7 @@ namespace MCBPlatformSupport {
                 _lambda(deltaTime, &_userData,_isDone);
         }
     protected:
-        MCBScheduleLambda(){}
+        MCBScheduleLambda() : _isDone(false), _lambda(nullptr) {}
         virtual ~MCBScheduleLambda(){}
     };
     template <typename T>
